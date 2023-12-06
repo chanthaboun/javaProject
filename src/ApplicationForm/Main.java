@@ -3,17 +3,16 @@ package ApplicationForm;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
-
-
 
 public class Main extends javax.swing.JFrame {
 
     String id, name, status;
-    
+
     public Main() {
         initComponents();
-        
+
     }
 
     // Overloading Construtor
@@ -23,41 +22,51 @@ public class Main extends javax.swing.JFrame {
         id = i;
         name = n;
         status = s;
-        
+
         // ການດືງຊື່ຜູ້ໃຊ້ງານມາໂສ
         this.setTitle("ຜູ້ໃຊ້ງານ: " + name);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../image/logo2.jpg")));
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); // ສະແດງຜົນເຕັມໜ້າຈໍ
-        
-        
+
         //ກຳນົດສິດໃນການເຂົ້າໃຊ້ໂປຣແກລມ or Determine the right to access the program
-        if(!status.equals("Admin")){
+        if (!status.equals("Admin")) {
             jMenuData.setVisible(false);
             jMenuOrderImport.setVisible(false);
             jMenuReport.setVisible(false);
         }
-        
+
+        // ເວລາໜ້າMain ໃຫ້ PanelHomeມາສະແດງຜົນກ່ອນ
+        showPanel(new PanelHome(id, name, status));
+
     }
-   
+
+    // ສ້າງMethod ເພື່ອເອົາແຕ່ລະPanel ມາສະແດງທີ່Panel Main
+    private void showPanel(JPanel panel) {
+        PanelMain.removeAll(); // ລືບອອກທັງໝົດ
+        PanelMain.add(panel);
+        PanelMain.validate();
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         PanelMain = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuHome = new javax.swing.JMenu();
         jMenuData = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItemCustomer = new javax.swing.JMenuItem();
+        jMenuItemEmployee = new javax.swing.JMenuItem();
+        jMenuItemProduct = new javax.swing.JMenuItem();
+        jMenuItemProductType = new javax.swing.JMenuItem();
+        jMenuItemBrand = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuOrderImport = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuCustomer = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenuReport = new javax.swing.JMenu();
@@ -76,13 +85,18 @@ public class Main extends javax.swing.JFrame {
         PanelMain.setBackground(new java.awt.Color(204, 204, 204));
         PanelMain.setLayout(new java.awt.BorderLayout());
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home_page.png"))); // NOI18N
-        jMenu1.setText("ໜ້າຫຼັກ");
-        jMenu1.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
-        jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jMenu1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenu1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jMenuBar1.add(jMenu1);
+        jMenuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home_page.png"))); // NOI18N
+        jMenuHome.setText("ໜ້າຫຼັກ");
+        jMenuHome.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jMenuHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMenuHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuHome.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuHomeMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuHome);
 
         jMenuData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/server.png"))); // NOI18N
         jMenuData.setText("ຈັດການຂໍ້ມູນ");
@@ -91,35 +105,35 @@ public class Main extends javax.swing.JFrame {
         jMenuData.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenuData.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItem1.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
-        jMenuItem1.setText("ຈັດການຂໍ້ມູນລູກຄ້າ");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCustomer.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
+        jMenuItemCustomer.setText("ຈັດການຂໍ້ມູນລູກຄ້າ");
+        jMenuItemCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemCustomerActionPerformed(evt);
             }
         });
-        jMenuData.add(jMenuItem1);
+        jMenuData.add(jMenuItemCustomer);
 
-        jMenuItem2.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
-        jMenuItem2.setText("ຈັດການຂໍ້ມູນພະນັກງານ");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemEmployee.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
+        jMenuItemEmployee.setText("ຈັດການຂໍ້ມູນພະນັກງານ");
+        jMenuItemEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemEmployeeActionPerformed(evt);
             }
         });
-        jMenuData.add(jMenuItem2);
+        jMenuData.add(jMenuItemEmployee);
 
-        jMenuItem3.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
-        jMenuItem3.setText("ຈັດການຂໍ້ມູນສິນຄ້າ");
-        jMenuData.add(jMenuItem3);
+        jMenuItemProduct.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
+        jMenuItemProduct.setText("ຈັດການຂໍ້ມູນສິນຄ້າ");
+        jMenuData.add(jMenuItemProduct);
 
-        jMenuItem4.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
-        jMenuItem4.setText("ຈັດການຂໍ້ມູນປະເພດສິນຄ້າ");
-        jMenuData.add(jMenuItem4);
+        jMenuItemProductType.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
+        jMenuItemProductType.setText("ຈັດການຂໍ້ມູນປະເພດສິນຄ້າ");
+        jMenuData.add(jMenuItemProductType);
 
-        jMenuItem5.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
-        jMenuItem5.setText("ຈັດການຂໍ້ມູນຍີ່ຫໍ້");
-        jMenuData.add(jMenuItem5);
+        jMenuItemBrand.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
+        jMenuItemBrand.setText("ຈັດການຂໍ້ມູນຍີ່ຫໍ້");
+        jMenuData.add(jMenuItemBrand);
 
         jMenuItem6.setFont(new java.awt.Font("Saysettha Web", 0, 14)); // NOI18N
         jMenuItem6.setText("ຈັດການຂໍ້ມູນອັດຕາແລກປ່ຽນ");
@@ -153,12 +167,17 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuOrderImport);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/customer.png"))); // NOI18N
-        jMenu4.setText("ລູກຄ້າ");
-        jMenu4.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
-        jMenu4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenu4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jMenuBar1.add(jMenu4);
+        jMenuCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/customer.png"))); // NOI18N
+        jMenuCustomer.setText("ລູກຄ້າ");
+        jMenuCustomer.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jMenuCustomer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuCustomer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuCustomerMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuCustomer);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Sale.png"))); // NOI18N
         jMenu5.setText("ຂາຍສິນຄ້າ");
@@ -262,13 +281,14 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    //jMenuItemCustomer ການສ້າງໄປຫາໜ້າໃໝ່
+    private void jMenuItemCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCustomerActionPerformed
+        showPanel(new PanelCustomer(id, name, status));
+    }//GEN-LAST:event_jMenuItemCustomerActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void jMenuItemEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEmployeeActionPerformed
+        showPanel(new PanelEmployee(id, name, status));
+    }//GEN-LAST:event_jMenuItemEmployeeActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
@@ -290,15 +310,22 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
-    
     // Logout section or Exit section 
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         int data = JOptionPane.showConfirmDialog(rootPane, "ທ່ານຕ້ອງການອອກຈາກລະບົບແທ້ ຫຼື ບໍ່", "ຢືນຢັນ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        
-        if(data == 0){
+
+        if (data == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenuExitMouseClicked
+    // jMenuHome
+    private void jMenuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuHomeMouseClicked
+        showPanel(new PanelHome(id, name, status));
+    }//GEN-LAST:event_jMenuHomeMouseClicked
+
+    private void jMenuCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCustomerMouseClicked
+        showPanel(new PanelCustomer(id, name, status));
+    }//GEN-LAST:event_jMenuCustomerMouseClicked
 
     
     public static void main(String args[]) {
@@ -311,14 +338,13 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMain;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCustomer;
     private javax.swing.JMenu jMenuData;
     private javax.swing.JMenu jMenuExit;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenuHome;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
@@ -326,15 +352,16 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuItemBrand;
+    private javax.swing.JMenuItem jMenuItemCustomer;
+    private javax.swing.JMenuItem jMenuItemEmployee;
+    private javax.swing.JMenuItem jMenuItemProduct;
+    private javax.swing.JMenuItem jMenuItemProductType;
     private javax.swing.JMenu jMenuOrderImport;
     private javax.swing.JMenu jMenuReport;
     // End of variables declaration//GEN-END:variables

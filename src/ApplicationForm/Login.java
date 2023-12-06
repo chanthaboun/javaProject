@@ -20,7 +20,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents(); // ມັນເປັນອ໋ອບເຈັກ
         this.setLocationRelativeTo(this);// ເຮັດໜ້າທີ່ການຈັດໃຫ້ໄປຢູ່ເຄິ່ງກາງ ເວລາ ຣັນໂຄ້ດ
-        this.setTitle("ໂປຣແກລມຂາຍສິນຄ້າ");
+        this.setTitle("ໂປຣແກຣມຂາຍສິນຄ້າ");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../image/logo2.jpg")));
 
     }
@@ -105,6 +105,7 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Cancel
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
@@ -146,21 +147,22 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
-
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         txtPass.requestFocus(); // if Enter on  txtUser ໃຫ້ຕົວຊີ້ເມົ້າມາຊີ້ຢູ່ txtPass
-
     }//GEN-LAST:event_txtUserActionPerformed
 
+    // Password
     private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
-        // TODO add your handling code here:
+        btnLogin.doClick(); // if Enter on  txtPassword ໃຫ້ຕົວຊີ້ເມົ້າມາຊີ້ຢູ່ btn
     }//GEN-LAST:event_txtPassActionPerformed
 
     public static void main(String args[]) {
         //FlatDarkLaf.setup();   // ເຮັດໜ້າທີ່ໃນການປ່ຽນຕິມສີຟອມ
         FlatLightLaf.setup();
         //ກໍານົດ Font ໃຫ້ກັບ JOptionPane
-        UIManager.put("defaultFont", new Font("Saysettha web", Font.PLAIN, 16));
+        //ກໍານົດຟ້ອນເລີ້ມຕົ້ນໃຫ້ກັບຟອມ
+        UIManager.put("defaultFont", new Font("Saysettha web", Font.PLAIN, 16));  
+        UIManager.put("OptionPane.messageFont", new Font("Saysettha web", Font.PLAIN, 14));
         UIManager.put("OptionPane.okButtonText", "ຕົກລົງ");
         UIManager.put("OptionPane.cancelButtonText", "ຍົກເລີກ");
 
