@@ -1,9 +1,14 @@
 package ApplicationForm;
 
+import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class Main extends javax.swing.JFrame {
@@ -19,6 +24,7 @@ public class Main extends javax.swing.JFrame {
     // ຖ້າຊຶ່ຕ່າງກັນເຮົາຕ້ອງໃຊ້ this  (i and name)
     public Main(String i, String n, String s) {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // ເມື່ອກົດປິດທີ່ X ບໍ່ໃຫ້ທຳງານ
         id = i;
         name = n;
         status = s;
@@ -27,6 +33,9 @@ public class Main extends javax.swing.JFrame {
         this.setTitle("ຜູ້ໃຊ້ງານ: " + name);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../image/logo2.jpg")));
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); // ສະແດງຜົນເຕັມໜ້າຈໍ
+        //ປຽນສີແຖບ Title bar ດ້ານເທິງ
+        getRootPane().putClientProperty(FlatClientProperties.TITLE_BAR_BACKGROUND, new Color(220, 220, 220));
+        getRootPane().putClientProperty(FlatClientProperties.TITLE_BAR_SHOW_ICON, false); //ບໍ່ສະແດງ Icon ທີ່ title bar
 
         //ກຳນົດສິດໃນການເຂົ້າໃຊ້ໂປຣແກລມ or Determine the right to access the program
         if (!status.equals("Admin")) {
@@ -69,6 +78,7 @@ public class Main extends javax.swing.JFrame {
         jMenuCustomer = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
         jMenuReport = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
@@ -78,9 +88,17 @@ public class Main extends javax.swing.JFrame {
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuExit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         PanelMain.setBackground(new java.awt.Color(204, 204, 204));
         PanelMain.setLayout(new java.awt.BorderLayout());
@@ -187,11 +205,18 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Search.png"))); // NOI18N
-        jMenu6.setText("ຄົ້ນຫາ");
+        jMenu6.setText("ຄົ້ນຫາສິນຄ້າ");
         jMenu6.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
         jMenu6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenu6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jMenuBar1.add(jMenu6);
+
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/profile.png"))); // NOI18N
+        jMenu8.setText("ໂປຣໄຟລ໊");
+        jMenu8.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jMenu8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuBar1.add(jMenu8);
 
         jMenuReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png"))); // NOI18N
         jMenuReport.setText("ລາຍງານ");
@@ -253,6 +278,30 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuReport);
 
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/change_Theme.png"))); // NOI18N
+        jMenu7.setText("ສີພື້ນຫຼັງ");
+        jMenu7.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
+        jMenu7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        jMenuItem1.setText("FlatLaf Light");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem1);
+
+        jMenuItem2.setText("FlatLaf Dark");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu7);
+
         jMenuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logout.png"))); // NOI18N
         jMenuExit.setText("ອອກຈາກລະບົບ");
         jMenuExit.setFont(new java.awt.Font("Saysettha OT", 0, 16)); // NOI18N
@@ -275,7 +324,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+            .addComponent(PanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
 
         pack();
@@ -313,9 +362,10 @@ public class Main extends javax.swing.JFrame {
     // Logout section or Exit section 
     private void jMenuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitMouseClicked
         int data = JOptionPane.showConfirmDialog(rootPane, "ທ່ານຕ້ອງການອອກຈາກລະບົບແທ້ ຫຼື ບໍ່", "ຢືນຢັນ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-
         if (data == 0) {
-            System.exit(0);
+            Login login = new Login();
+            login.setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_jMenuExitMouseClicked
     // jMenuHome
@@ -327,7 +377,38 @@ public class Main extends javax.swing.JFrame {
         showPanel(new PanelCustomer(id, name, status));
     }//GEN-LAST:event_jMenuCustomerMouseClicked
 
-    
+    // ປ່ຽນTheme
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        getRootPane().putClientProperty(FlatClientProperties.TITLE_BAR_BACKGROUND, new Color(30, 30, 30));
+        SwingUtilities.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+                SwingUtilities.updateComponentTreeUI(this);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e);
+            }
+        });
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        getRootPane().putClientProperty(FlatClientProperties.TITLE_BAR_BACKGROUND, new Color(220, 220, 220));
+        SwingUtilities.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(new FlatLightLaf());
+                SwingUtilities.updateComponentTreeUI(this);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e);
+            }
+        });
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int data = JOptionPane.showConfirmDialog(rootPane, "ທ່ານຕ້ອງການປິດໂປຣແກຣມແທ້ ຫຼື ບໍ່", "ຢືນຢັນ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (data == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -340,11 +421,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel PanelMain;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCustomer;
     private javax.swing.JMenu jMenuData;
     private javax.swing.JMenu jMenuExit;
     private javax.swing.JMenu jMenuHome;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
@@ -352,6 +436,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

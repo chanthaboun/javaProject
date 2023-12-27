@@ -1,12 +1,15 @@
 package ApplicationForm;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 import java.sql.*;  // .* ເປັນນຳເຂົ້າທັງໝົດ
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import mysql_connect.MysqlConnect;
 import passwordHashing.PasswordHashing;
@@ -22,6 +25,29 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);// ເຮັດໜ້າທີ່ການຈັດໃຫ້ໄປຢູ່ເຄິ່ງກາງ ເວລາ ຣັນໂຄ້ດ
         this.setTitle("ໂປຣແກຣມຂາຍສິນຄ້າ");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../image/logo2.jpg")));
+        
+        
+        //ປຽນສີແຖບ Title bar ດ້ານເທິງ
+        getRootPane().putClientProperty(FlatClientProperties.TITLE_BAR_BACKGROUND, new Color(220, 220, 220));
+        
+
+
+        //PlaceHolder
+        txtUser.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ບັນຊີເຂົ້າໃຊ້");
+        txtPass.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ລະຫັດຜ່ານ");
+
+        //ລືບ
+        txtUser.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        txtPass.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+
+        //ໃສ່ຮູບໃນ txtUser ແລະ txtPass
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("../image/user_login.png"));
+        ImageIcon icon2 = new ImageIcon(getClass().getResource("../image/key.png"));
+        txtUser.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, icon1);
+        txtPass.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, icon2);
+
+      //ສະແດງລະຫັດຜ່ານ ເປັນການສ້າງ Events
+       txtPass.putClientProperty(FlatClientProperties.STYLE, "showRevealButton:true");
 
     }
 
@@ -30,8 +56,6 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
         btnCancel = new javax.swing.JButton();
@@ -43,15 +67,6 @@ public class Login extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ຟອມເຂົ້າໃຊ້ລະບົບ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lao_SomVang", 1, 18))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Saysettha Web", 0, 16)); // NOI18N
-        jLabel1.setText("ລະຫັດຜ່ານ");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Saysettha Web", 0, 16)); // NOI18N
-        jLabel2.setText("ບັນຊີເຂົ້າໃຊ້");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 80, -1));
-
-        txtUser.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserActionPerformed(evt);
@@ -59,7 +74,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 220, 30));
 
-        txtPass.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtPass.setFont(new java.awt.Font("Lao_SomVang", 0, 16)); // NOI18N
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPassActionPerformed(evt);
@@ -89,17 +104,17 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(36, 36, 36)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,10 +176,17 @@ public class Login extends javax.swing.JFrame {
         FlatLightLaf.setup();
         //ກໍານົດ Font ໃຫ້ກັບ JOptionPane
         //ກໍານົດຟ້ອນເລີ້ມຕົ້ນໃຫ້ກັບຟອມ
-        UIManager.put("defaultFont", new Font("Saysettha web", Font.PLAIN, 16));  
-        UIManager.put("OptionPane.messageFont", new Font("Saysettha web", Font.PLAIN, 14));
+        UIManager.put("defaultFont", new Font("Lao_SomVang", Font.PLAIN, 16));
+        UIManager.put("OptionPane.messageFont", new Font("Lao_SomVang", Font.PLAIN, 14));
         UIManager.put("OptionPane.okButtonText", "ຕົກລົງ");
         UIManager.put("OptionPane.cancelButtonText", "ຍົກເລີກ");
+
+        UIManager.put("Button.arc", 999);
+        UIManager.put("Component.arc", 999);
+        UIManager.put("ProgressBar.arc", 999);
+        UIManager.put("TextComponent.arc", 999);
+        UIManager.put("Component.arrowType", "triangle");
+        UIManager.put( "ScrollBar.showButtons", true );
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -178,8 +200,6 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
