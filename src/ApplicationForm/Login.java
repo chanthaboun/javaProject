@@ -3,6 +3,7 @@ package ApplicationForm;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -83,22 +84,19 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 220, 30));
 
         btnCancel.setFont(new java.awt.Font("Lao_SomVang", 0, 16)); // NOI18N
+        btnCancel.setIcon(new FlatSVGIcon("image_svg/Cancel.svg"));
         btnCancel.setText("ຍົກເລີກ");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
+        jPanel2.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
 
         btnLogin.setFont(new java.awt.Font("Lao_SomVang", 0, 16)); // NOI18N
+        btnLogin.setIcon(new FlatSVGIcon("image_svg/Login.svg"));
         btnLogin.setText("ເຂົ້າໃຊ້ງານ");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
-        jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 120, -1));
+        jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,11 +117,6 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    // Cancel
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelActionPerformed
 
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
