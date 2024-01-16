@@ -1,6 +1,7 @@
 package ApplicationForm;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.sql.*;
 import java.util.Vector;
@@ -184,6 +185,11 @@ public class PanelCustomer extends javax.swing.JPanel {
                 "ລະຫັດລູກຄ້າ", "ຊື່ລູກຄ້າ", "ນາມສະກຸນ", "ເພດ", "ທີ່ຢູ່", "ເບີໂທ"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ຈັດການຂໍ້ມູນລູກຄ້າ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lao_SomVang", 0, 18))); // NOI18N
@@ -250,10 +256,20 @@ public class PanelCustomer extends javax.swing.JPanel {
 
         btnEdit.setFont(new java.awt.Font("Saysettha Web", 0, 16)); // NOI18N
         btnEdit.setText("ແກ້ໄຂ");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 200, -1, -1));
 
         btnCancel.setFont(new java.awt.Font("Saysettha Web", 0, 16)); // NOI18N
         btnCancel.setText("ຍົກເລີກ");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, -1, -1));
 
         btnAdd.setFont(new java.awt.Font("Saysettha Web", 0, 16)); // NOI18N
@@ -267,6 +283,11 @@ public class PanelCustomer extends javax.swing.JPanel {
 
         btnDelete.setFont(new java.awt.Font("Saysettha Web", 0, 16)); // NOI18N
         btnDelete.setText("ລືບ");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, 60, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -286,6 +307,11 @@ public class PanelCustomer extends javax.swing.JPanel {
         );
 
         txtSearch.setFont(new java.awt.Font("Lao_SomVang", 0, 14)); // NOI18N
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -310,8 +336,8 @@ public class PanelCustomer extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                .addGap(37, 37, 37))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -334,9 +360,9 @@ public class PanelCustomer extends javax.swing.JPanel {
             pst.executeUpdate();
             tableUpdate();
             clearForm();
-            ImageIcon icon = new ImageIcon(getClass().getResource("../image/ok.png"));
-            JOptionPane.showMessageDialog(null, "ຂໍ້ມູນບັນທືກລົງໃນຖານຂໍ້ມູນສຳເລັດ","ສຳເລັດ",JOptionPane.WIDTH,icon);
-            
+            //ImageIcon icon = new ImageIcon(getClass().getResource("../image/ok.png"));
+            FlatSVGIcon icon = new FlatSVGIcon("image_svg/done.svg");
+            JOptionPane.showMessageDialog(null, "ຂໍ້ມູນບັນທືກລົງໃນຖານຂໍ້ມູນສຳເລັດ", "ສຳເລັດ", JOptionPane.WIDTH, icon);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -349,6 +375,116 @@ public class PanelCustomer extends javax.swing.JPanel {
             return;
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        DefaultTableModel d = (DefaultTableModel) jTable1.getModel();
+        int selectIndex = jTable1.getSelectedRow(); // 
+        if (selectIndex == -1) {
+            return;
+        }
+        txtId.setText(d.getValueAt(selectIndex, 0).toString());
+        txtFirstname.setText(d.getValueAt(selectIndex, 1).toString());
+        txtLastname.setText(d.getValueAt(selectIndex, 2).toString());
+
+        String gender = d.getValueAt(selectIndex, 3).toString();
+        if (gender.equals("ຊາຍ")) {
+            txtMale.setSelected(true);
+        } else {
+            txtFemale.setSelected(true);
+        }
+        txtAddress.setText(d.getValueAt(selectIndex, 4).toString());
+        txtTelephone.setText(d.getValueAt(selectIndex, 5).toString());
+        // ກຳນົດປຸ່ມເພີ່່ມບໍ່ໃຫ້ໃຊ້ງານໄດ້ ປຸ່ມແກ້ໄຂ ແລະປຸ່ມລົບໃຫ້ໃຊ້ງານໄດ້
+        btnAdd.setEnabled(false);
+        btnEdit.setEnabled(true);
+        btnDelete.setEnabled(true);
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        clearForm();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // ກວດສອບວ່າປ້ອນຂໍ້ມູນຄົບຖ້ວນ ຫຼື ບໍ່
+
+        try {
+            String sql = "UPDATE customer SET cus_name=?, cus_lname=?, gender=?, address=?, tel=? WHERE cus_id=?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(6, txtId.getText());
+            pst.setString(1, txtFirstname.getText());
+            pst.setString(2, txtLastname.getText());
+            pst.setString(3, gender.getSelection().getActionCommand());
+            pst.setString(4, txtAddress.getText());
+            pst.setString(5, txtTelephone.getText());
+
+            pst.executeUpdate();
+            tableUpdate();
+            clearForm();
+            //ImageIcon icon = new ImageIcon(getClass().getResource("../image/ok.png"));
+            FlatSVGIcon icon = new FlatSVGIcon("image_svg/done.svg");
+            JOptionPane.showMessageDialog(null, "ປັບປຸງຂໍ້ມູນລູກຄ້າໃນຖານຂໍ້ມູນສຳເລັດ", "ສຳເລັດ", JOptionPane.WIDTH, icon);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        // ກວດສອບເບີໂທ
+        if (!Validation.TelephoneValidation(txtTelephone.getText())) {
+            JOptionPane.showMessageDialog(null, "ກະລຸນາປ້ອນຂໍ້ມູນເບີໂທໃຫ້ຖືກຕ້ອງດ້ວຍ", "ຜິດຜາດ", JOptionPane.WARNING_MESSAGE);
+            txtTelephone.requestFocus();
+            return;
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // ຢືນຢັນຂໍ້ມູນກ່ອນລືບ
+        int data;
+        data = JOptionPane.showConfirmDialog(null, "ທ່ານຕ້ອງການລືບຂໍ້ມູນລາຍການນີ້ແທ້ ຫຼືບໍ່", "ຢືນຢັນ",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (data != 0) {
+            clearForm();
+            return;
+        }
+        try {
+            String sql = "DELETE FROM customer WHERE cus_id=?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, txtId.getText());
+            pst.executeUpdate();
+            tableUpdate();
+            clearForm();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        try {
+            String sql = "SELECT *FROM customer WHERE CONCAT(cus_id, cus_name, cus_lname,gender)" 
+                    + "LIKE '%" + txtSearch.getText()+"%' ORDER BY cus_id DESC";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            DefaultTableModel d = (DefaultTableModel) jTable1.getModel();
+            jTable1.setRowHeight(30); // ຄວາມສູງຂອງແຖວຕາຕະລາງ
+            d.setRowCount(0); // ລືບແຖວຕາຕະລາງອອກໝົດ
+
+            // ພາກສ່ວນຂອງການດຶງຂໍ້ມູນມາຈາກdatabaseອອກມາໂຊໃນຕາຕະລາງ
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getString("cus_id"));
+                v.add(rs.getString("cus_name"));
+                v.add(rs.getString("cus_lname"));
+                v.add(rs.getString("gender"));
+                v.add(rs.getString("address"));
+                v.add(rs.getString("tel"));
+                d.addRow(v);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_txtSearchKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
